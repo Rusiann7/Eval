@@ -3,6 +3,8 @@ import { isAuthenticated } from "@/utils/auth"
 
 const Landing = () => import('@/components/user/landing-page.vue')
 const Eval = () => import('@/components/user/evalForm.vue')
+const Honepage = () => import('@/components/admin/homepage.vue')
+const adminUser = () => import('@/components/admin/admin-user.vue')
 
 const routes = [
     {
@@ -17,6 +19,20 @@ const routes = [
       name: "evalPage",
       component: Eval,
       meta: {title: "Evaluation", requiresAuth: false}
+    },
+
+    {
+      path: "/homepage",
+      name: "homePage",
+      component: Honepage,
+      meta: {title: "Home Page", requiresAuth: false}
+    },
+
+    {
+      path: "/adminUser",
+      name: "adminUser",
+      component: adminUser,
+      meta: {title: "Users", requiresAuth: false}
     }
 ];
 

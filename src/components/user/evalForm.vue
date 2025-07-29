@@ -58,15 +58,58 @@
   <div class="main-content">
     <div class="content">
         <div v-if="!feedbackSubmitted" class="feedback-form"> 
-            <H2 class="title">EVALUATE</H2>
-            <p class="text-white">We value your feedback</p>
+          <H2 class="title">EVALUATE</H2>
+          <p class="text-white">We value your feedback</p>
+          <br>
+          <p class="text-white">Select who will you be evaluating</p>
+          
+          <div class="tab-container">
+            <div class="tab" :class="{active: category === 'teacher'}" @click="selectCategory('teacher')">Teachers</div>
+            <div class="tab" :class="{active: category === 'student'}" @click="selectCategory('student')">Students</div>
+          </div>
 
-            <br>
+          <select name="" class="btn" required>
+            <option value="Hello">Hello</option>
+          </select>
+            
+          <p class="text-white">Choose</p>
+          <div class="radio-btn">
 
-            <p class="text-white">Select who will you be evaluating</p>
-            <input type="radio" class="radio-btn" name="selection" value="">
-        </div>
+            <div class="radio-option">
+              <input type="radio" id="one" name="rating" value="1">
+              <label for="one">1</label>
+            </div>
+ 
+            <div class="radio-option">
+              <input type="radio" id="two" name="rating" value="2">
+              <label for="two">2</label>
+            </div> 
 
+            <div class="radio-option">
+              <input type="radio" id="three" name="rating" value="3">
+              <label for="three">3</label>
+            </div> 
+
+            <div class="radio-option">
+              <input type="radio" id="four" name="rating" value="4">
+              <label for="four">4</label>
+            </div>
+          </div>
+
+          <p class="text-white">Enter comment</p>
+          <textarea
+            id="feedback"
+            v-model="feedback"
+            class="feedback-input"
+            placeholder="Input Text Here"
+            required
+          >
+          </textarea>
+
+          <button type="submit" class="btn" @click.prevent="submitFeedback">
+            Submit
+          </button>
+       </div>
     </div>
   </div>
 
@@ -74,23 +117,31 @@
 
 <script>
 export default {
-    name: "evalForm",
-    data() {
-        return {
-            FeedbackData: {
-                feedback: "",
-                rating: 0,
-            },
-            feedbackSubmitted: false,
-            responseMessage: null,
-            feedback: "",
-            rating: 0,
-            urlappphp: "",
-            isloading: false,
-        };
-    },
+  name: "evalForm",
+  data() {
+    return {
+      FeedbackData: {
+        feedback: "",
+        rating: 0,
+      },
+      feedbackSubmitted: false,
+      responseMessage: null,
+      feedback: "",
+      rating: 0,
+      urlappphp: "",
+      isloading: false,
+      category: 'teachers',
+    };
+  },
 
     methods: {
+
+      async selectCategory(category){
+        this.category = category;
+      },
+
+
+
         showSidebar() {
             this.$refs.sidebar.style.display = "flex";
         },
@@ -257,6 +308,109 @@ nav li:first-child {
   z-index: 9999;
   border-radius: 15px;
   padding: 30px;
+  position: relative;
+}
+
+.radio-btn {
+  display: flex;
+  gap: 20px;
+  margin: 20px 0;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.radio-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.radio-option input[type="radio"] {
+  margin-bottom: 8px;
+  accent-color: #4a5568; 
+  width: 25px;
+  height: 18px;
+}
+
+.radio-option label {
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.tab-container {
+  display: flex;
+  align-items: center;      /* vertical alignment */
+  justify-content: space-between; /* put title left, button right */
+  margin-bottom: 24px;     
+  
+  padding: 8px 0;
+  color: #ffffff;
+}
+
+.tab {
+  padding: 0.5rem 1rem;
+  background: #ffe082;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #001821;
+  transition: all 0.3s ease;
+}
+
+.tab.active {
+  background: #333;
+  color: #fff;
+}
+
+.tab:hover{
+  color: #001821;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+
+.tab.active:hover{
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+}
+
+.feedback-input {
+  display: block;
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background: #fff;
+  color: #000;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btn {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background: #ffe082;
+  color: #001821;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.btn:hover {
+  background: #ffd448; 
+  color: #001821; 
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .loading-screen {

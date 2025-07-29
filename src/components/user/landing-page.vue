@@ -54,8 +54,6 @@ html, body{
     padding: 0;
 }
 
-
-
 .main-container {
     display: flex;
     justify-content: center;
@@ -64,7 +62,6 @@ html, body{
     box-sizing: border-box;
     margin-top: 250px;
 }
-
 
 .text-white, .link {
     color: white;
