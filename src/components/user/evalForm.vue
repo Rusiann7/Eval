@@ -1,5 +1,5 @@
 <template>
- <nav>
+  <nav>
     <ul class="sidebar" ref="sidebar">
       <li @click="hideSidebar">
         <a href="#">
@@ -9,21 +9,28 @@
             viewBox="0 -960 960 960"
             width="26"
             fill="#e3e3e3"
-            >
-
+          >
             <path
               d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"
             />
           </svg>
         </a>
       </li>
-      <li><a href="#" @click.prevent="$router.push('/')">Home Page</a></li>
-      <li><a href="#" @click.prevent="$router.push('/price')">Evaluation</a></li>
+      <li>
+        <a href="#" @click.prevent="$router.push('/')"
+          >Testing Phase Version Control 0.3</a
+        >
+      </li>
+      <li>
+        <a href="#" @click.prevent="$router.push('/price')">Evaluation</a>
+      </li>
     </ul>
 
     <ul>
       <li>
-        <a href="#" @click.prevent="$router.push('/')">Evaluation Home</a>
+        <a href="#" @click.prevent="$router.push('/')"
+          >Testing Phase Version Control 0.3</a
+        >
       </li>
       <li class="hideMobile">
         <a href="#" @click.prevent="$router.push('/')">Home Page</a>
@@ -39,8 +46,7 @@
             viewBox="0 -960 960 960"
             width="26"
             fill="#e3e3e3"
-            >
-
+          >
             <path
               d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"
             />
@@ -50,69 +56,79 @@
     </ul>
   </nav>
 
-   <div v-if="isLoading" class="loading-screen">
+  <div v-if="isloading" class="loading-screen">
     <div class="loading-spinner"></div>
     <p>Loading...</p>
   </div>
 
   <div class="main-content">
     <div class="content">
-        <div v-if="!feedbackSubmitted" class="feedback-form"> 
-          <H2 class="title">EVALUATE</H2>
-          <p class="text-white">We value your feedback</p>
-          <br>
-          <p class="text-white">Select who will you be evaluating</p>
-          
-          <div class="tab-container">
-            <div class="tab" :class="{active: category === 'teacher'}" @click="selectCategory('teacher')">Teachers</div>
-            <div class="tab" :class="{active: category === 'student'}" @click="selectCategory('student')">Students</div>
-          </div>
+      <div v-if="!feedbackSubmitted" class="feedback-form">
+        <H2 class="title">EVALUATE</H2>
+        <p class="text-white">We value your feedback</p>
+        <br />
+        <p class="text-white">Select who will you be evaluating</p>
 
-          <select name="" class="btn" required>
-            <option value="Hello">Hello</option>
-          </select>
-            
-          <p class="text-white">Choose</p>
-          <div class="radio-btn">
-
-            <div class="radio-option">
-              <input type="radio" id="one" name="rating" value="1">
-              <label for="one">1</label>
-            </div>
- 
-            <div class="radio-option">
-              <input type="radio" id="two" name="rating" value="2">
-              <label for="two">2</label>
-            </div> 
-
-            <div class="radio-option">
-              <input type="radio" id="three" name="rating" value="3">
-              <label for="three">3</label>
-            </div> 
-
-            <div class="radio-option">
-              <input type="radio" id="four" name="rating" value="4">
-              <label for="four">4</label>
-            </div>
-          </div>
-
-          <p class="text-white">Enter comment</p>
-          <textarea
-            id="feedback"
-            v-model="feedback"
-            class="feedback-input"
-            placeholder="Input Text Here"
-            required
+        <div class="tab-container">
+          <div
+            class="tab"
+            :class="{ active: category === 'teacher' }"
+            @click="selectCategory('teacher')"
           >
-          </textarea>
+            Teachers
+          </div>
+          <div
+            class="tab"
+            :class="{ active: category === 'student' }"
+            @click="selectCategory('student')"
+          >
+            Students
+          </div>
+        </div>
 
-          <button type="submit" class="btn" @click.prevent="submitFeedback">
-            Submit
-          </button>
-       </div>
+        <select name="" class="btn" required>
+          <option value="Hello">Hello</option>
+        </select>
+
+        <p class="text-white">Choose</p>
+        <div class="radio-btn">
+          <div class="radio-option">
+            <input type="radio" id="one" name="rating" value="1" v-model="rating" />
+            <label for="one">1</label>
+          </div>
+
+          <div class="radio-option">
+            <input type="radio" id="two" name="rating" value="2" v-model="rating"/>
+            <label for="two">2</label>
+          </div>
+
+          <div class="radio-option">
+            <input type="radio" id="three" name="rating" value="3" v-model="rating" />
+            <label for="three">3</label>
+          </div>
+
+          <div class="radio-option">
+            <input type="radio" id="four" name="rating" value="4" v-model="rating"/>
+            <label for="four">4</label>
+          </div>
+        </div>
+
+        <p class="text-white">Enter comment</p>
+        <textarea
+          id="feedback"
+          v-model="feedback"
+          class="feedback-input"
+          placeholder="Input Text Here"
+          required
+        >
+        </textarea>
+
+        <button type="submit" class="btn" @click.prevent="submitFeedback">
+          Submit
+        </button>
+      </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -130,28 +146,83 @@ export default {
       rating: 0,
       urlappphp: "",
       isloading: false,
-      category: 'teachers',
+      category: "teachers",
     };
   },
 
-    methods: {
+  methods: {
+    async selectCategory(category) {
+      this.category = category;
+    },
 
-      async selectCategory(category){
-        this.category = category;
-      },
+    async submitFeedback() {
+      this.isloading = true;
 
+      const urls = [
+        "https://star-panda-literally.ngrok-free.app/feedback.php",
+        "https://rusiann7.helioho.st/feedback.php",
+        "http://localhost:8080/feedback.php"
+      ];
 
+      for (const url of urls) {
+        try {
+          const testResponse = await fetch(url, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ action: "ping"})
+          });
 
-        showSidebar() {
-            this.$refs.sidebar.style.display = "flex";
-        },
+          if (testResponse.ok) {
+            this.urlappphp = url;
+            break;
+          }
+        }catch (_) {
+          continue;
+        }
+      }
 
-        hideSidebar() {
-        this.$refs.sidebar.style.display = "none";
-        },
-    }
-}
+      try {
+        if (this.rating < 1 || this.rating > 5) {
+          alert("Error");
+          return;
+        }
 
+        const response = await fetch(this.urlappphp, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            action: "feedback",
+            feedback: this.feedback,
+            rating: this.rating,
+            category: this.category,
+          }),
+        });
+
+        const result = await response.json();
+
+        if(result.success) {
+          this.feedbackSubmitted = true;
+          alert("Feedback has been submitted successfully!");
+        }else {
+          alert (result.error || "Error")
+        }
+
+      }catch (error) {
+        console.error("Error submitting feedback:", error)
+      }finally {
+        this.isloading = false;
+      }
+    },
+
+    showSidebar() {
+      this.$refs.sidebar.style.display = "flex";
+    },
+
+    hideSidebar() {
+      this.$refs.sidebar.style.display = "none";
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -224,7 +295,7 @@ nav a:hover {
 }
 
 nav a:active {
-  background-color: #4a5568;  /* pressed state */
+  background-color: #4a5568; /* pressed state */
 }
 
 nav li:first-child {
@@ -329,7 +400,7 @@ nav li:first-child {
 
 .radio-option input[type="radio"] {
   margin-bottom: 8px;
-  accent-color: #4a5568; 
+  accent-color: #4a5568;
   width: 25px;
   height: 18px;
 }
@@ -342,10 +413,10 @@ nav li:first-child {
 
 .tab-container {
   display: flex;
-  align-items: center;      /* vertical alignment */
+  align-items: center; /* vertical alignment */
   justify-content: space-between; /* put title left, button right */
-  margin-bottom: 24px;     
-  
+  margin-bottom: 24px;
+
   padding: 8px 0;
   color: #ffffff;
 }
@@ -365,14 +436,14 @@ nav li:first-child {
   color: #fff;
 }
 
-.tab:hover{
+.tab:hover {
   color: #001821;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
 }
 
-.tab.active:hover{
+.tab.active:hover {
   color: white;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -390,7 +461,7 @@ nav li:first-child {
   border-radius: 5px;
   background: #fff;
   color: #000;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .btn {
@@ -407,8 +478,8 @@ nav li:first-child {
 }
 
 .btn:hover {
-  background: #ffd448; 
-  color: #001821; 
+  background: #ffd448;
+  color: #001821;
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -437,5 +508,4 @@ nav li:first-child {
   animation: spin 1s linear infinite;
   margin-bottom: 10px;
 }
-
 </style>

@@ -5,6 +5,7 @@ const Landing = () => import('@/components/user/landing-page.vue')
 const Eval = () => import('@/components/user/evalForm.vue')
 const Honepage = () => import('@/components/admin/homepage.vue')
 const adminUser = () => import('@/components/admin/admin-user.vue')
+const test = () => import('@/components/test.vue')
 
 const routes = [
     {
@@ -33,6 +34,13 @@ const routes = [
       name: "adminUser",
       component: adminUser,
       meta: {title: "Users", requiresAuth: false}
+    },
+
+    {
+      path: "/test",
+      name: "test",
+      component: test,
+      meta: {title: "Test Page", requiresAuth: false} 
     }
 ];
 

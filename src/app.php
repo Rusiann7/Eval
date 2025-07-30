@@ -38,10 +38,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'OPTIONS') {
 
 $action = isset($data['action']) ? $data['action'] : '';
 
-$host = "localhost";
-$user = "root";
-$password = "";
-$dbname = "Evaluation";
+$host ="";
+$user ="";
+$password="";
+$dbname="";
 
 $conn = new mysqli($host, $user, $password, $dbname);
 

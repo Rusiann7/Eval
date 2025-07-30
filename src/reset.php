@@ -15,6 +15,12 @@ header('Content-Type: application/json');
 $action = '';
 $data = [];
 
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
+use Firebase\JWT\JWT;
+use Firebase\JWT\Key;
+
 define('JWT_SECRET_KEY', 'market');
 define('JWT_EXPIRE_TIME', 3600);
 
@@ -28,7 +34,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 if ($_SERVER['REQUEST_METHOD'] !== 'OPTIONS') {
     header('Content-Type: application/json');
 }
-
 
 $host ="";
 $user ="";
